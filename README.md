@@ -8,4 +8,5 @@
 ### Run the app
 cd app/
 
-command: meteor
+1. install deps: meteor install
+2. start server: meteor
