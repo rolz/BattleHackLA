@@ -7,4 +7,5 @@
 
 ### Run the app
 cd app/
+
 command: meteor
