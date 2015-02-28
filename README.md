@@ -5,6 +5,6 @@
 
 ## Pull this code
 
-## Run the app
-### cd app/
-### command: meteor
+### Run the app
+cd app/
+command: meteor
