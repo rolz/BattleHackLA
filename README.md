@@ -1,2 +1,2 @@
-# BattleHackLA 2015 Code Rocks
+# BattleHackLA 2015 Code 
 
