@@ -4,7 +4,11 @@
     {{> loginButtons}}
 
     {{#if currentUser}}
-          {{repos}}
+    {{#each repos}}
+
+        <div>{{repo}} has {{commits}} commits <button class="add">Add</button> </div>
+
+    {{/each}}
     {{/if}}
 
 
