@@ -1,27 +1,6 @@
 // code to run on server at startup
 console.log("meteor started!!");
 
-
-//secure
-UserCredentials.allow({
-    insert: function() {
-        return true;
-    },
-    remove: function() {
-        return true;
-    }
-});
-
-UserRepos.allow({
-    insert: function() {
-        return true;
-    },
-    remove: function() {
-        return true;
-    }
-});
-
-
 // Start Github Api Package
 var github = new GitHub({
     version: "3.0.0", // required
@@ -34,12 +13,33 @@ Accounts.onLogin(function(info) {
     var username = info.user.services.github.username;
     var token = info.user.services.github.accessToken;
 
-    // put user creds in collection
-    UserCredentials.insert({
-        username: username,
-        token: token
-    });
+    ifUserExists(username, token);
 
+});
+
+
+function ifUserExists(username, token) {
+    var user = UserCredentials.findOne({username:username});
+    console.log(user);
+
+    // store current user in state
+
+    if (user) {
+        console.log("user exists");
+        // UserSession.set("currentUser", user);
+    } else {
+        console.log("user doesn't exists");
+        // create user account
+        UserCredentials.insert({
+            username: username,
+            token: token
+        });
+
+        addRepos(username,token);
+    }
+}
+
+function addRepos(username, token) {
     // authenticate to github and get repos
     github.authenticate({
         type: "oauth",
@@ -51,14 +51,14 @@ Accounts.onLogin(function(info) {
         user: username
     });
 
+    var repoArray = [];
     for (var i = 0; i < repos.length; i++ ) {
-        var repo = repos[i].name;
-        UserRepos.insert({
-            repo: repo
-        });
+        var allRepos = repos[i].name;
+        repoArray.push(allRepos);
     }
 
-
-    // console.log(repos);
-
-});
+    UserRepos.insert({
+        username: username,
+        repo: repoArray
+    });
+}

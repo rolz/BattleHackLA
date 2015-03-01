@@ -10,7 +10,7 @@ Template.index.helpers({
 
 Template.dashboard.helpers({
   repos: function() {
-    //  var userInfo =  Meteor.user().services.github.email;
-    return JSON.stringify(UserRepos.find().fetch());
+    console.log(Session.get('currentUser'));
+    return JSON.stringify(UserRepos.findOne({username:Session.get('currentUser')}));
   }
 });
