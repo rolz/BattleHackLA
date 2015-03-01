@@ -22,27 +22,9 @@ function ifUserExists(username, token) {
     var user = UserCredentials.findOne({username:username});
     console.log(user);
 
-    github.authenticate({
-        type: "oauth",
-        token: token
-    });
-
     // store current user in state
     if (user) {
         console.log("user exists");
-        var repos = UserRepos.findOne({username:username});
-
-        for (var i = 0; i < repos.repo.length; i++) {
-
-            var commits = github.repos.getCommits({
-                user: username,
-                repo: repos.repo[i],
-                author: username
-            });
-            console.log(commits.length);
-        }
-
-
     } else {
         console.log("user doesn't exists");
         // create user account
@@ -78,5 +60,71 @@ function addRepos(username, token) {
         repo: repoArray
     });
 
+    addCommits(username, token);
+}
+
+
+function addCommits(username, token) {
+
+    github.authenticate({
+        type: "oauth",
+        token: token
+    });
+
+
+    var repos = UserRepos.findOne({username:username});
+
+        // store in collection
+        for (var i = 0; i < repos.repo.length; i++) {
+
+            var repoName = repos.repo[i];
+            var commits = github.repos.getCommits({
+                user: username,
+                repo: repos.repo[i],
+                author: username
+            });
+
+            var commitsCount = commits.length;
+
+            UserCommits.insert({
+                username: username,
+                repo: repoName,
+                commits: commitsCount
+            });
+        }
 
 }
+
+
+Meteor.methods({
+    githubHook: function (username, repo) {
+    //     console.log(username+"/"+repo);
+    //     var thisUser = username;
+    //     var thisRepo = repo;
+    //
+    //     var token = UserCredentials.findOne({username:username}).token;
+    //
+    //     github.authenticate({
+    //         type: "oauth",
+    //         token: token
+    //     });
+    //
+    //
+    //     github.repos.getHook({
+    //         user: thisUser,
+    //         repo: thisRepo,
+    //         name: 'web',
+    //         //events: ['push'],
+    //         config: {
+    //             url: "http://localhost:3000/webhook",
+    //             content_type: "json"
+    //         }
+    //         //,active: true
+    //     }, function(err, res) {
+    //         console.log(JSON.stringify(res));
+    //     });
+    //
+    //
+    //     console.log('lets do it');
+    }
+});

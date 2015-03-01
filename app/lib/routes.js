@@ -23,7 +23,6 @@ Router.map(function() {
                 }
             } else {
                 Session.set('currentUser', Meteor.user().services.github.username);
-                console.log(Meteor.user().services.github.username);
                 Router.go('dashboard');
                 this.next()
             }

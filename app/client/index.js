@@ -8,9 +8,18 @@ Template.index.helpers({
   }
 });
 
+Template.dashboard.events({
+  'click .add': function(event) {
+    var user = Session.get('currentUser');
+    var repo = this.repo;
+    console.log("repo" + repo);
+
+    Meteor.call('githubHook', user, repo, function(err, response) {});
+  }
+});
+
 Template.dashboard.helpers({
   repos: function() {
-    console.log(Session.get('currentUser'));
-    return JSON.stringify(UserRepos.findOne({username:Session.get('currentUser')}));
+    return UserCommits.find({username:Session.get('currentUser')});
   }
 });
