@@ -51,10 +51,14 @@ Accounts.onLogin(function(info) {
         user: username
     });
 
-    UserRepos.insert({
-        repos: repos
-    });
+    for (var i = 0; i < repos.length; i++ ) {
+        var repo = repos[i].name;
+        UserRepos.insert({
+            repo: repo
+        });
+    }
 
-    console.log(repos);
+
+    // console.log(repos);
 
 });
