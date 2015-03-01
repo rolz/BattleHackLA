@@ -21,5 +21,16 @@ Template.dashboard.events({
 Template.dashboard.helpers({
   repos: function() {
     return UserCommits.find({username:Session.get('currentUser')});
-  }
+    }
 });
+
+Template.commits.helpers({
+    commits: function () {
+        Session.set('newCommits', 0);
+        return Session.get('newCommits');
+        Tracker.autorun(function () {
+            console.log(Session.get('newCommits'));
+            return Session.get('newCommits');
+        })
+    }
+})

@@ -114,9 +114,9 @@ Meteor.methods({
     //         user: thisUser,
     //         repo: thisRepo,
     //         name: 'web',
-    //         //events: ['push'],
+    //         events: ['push'],
     //         config: {
-    //             url: "http://localhost:3000/webhook",
+    //             url: "http://developher.meteor.com/webhook",
     //             content_type: "json"
     //         }
     //         //,active: true

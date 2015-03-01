@@ -6,6 +6,7 @@ Router.route('/webhook', {where: 'server'})
   })
   .post(function () {
     var post = this.request.body;
+    Session.set('newCommit', post);
     console.log(post);
     this.response.end('post request\n');
   });
