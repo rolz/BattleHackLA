@@ -12,6 +12,7 @@ Template.dashboard.events({
   'click .add': function(event) {
     var user = Session.get('currentUser');
     var repo = this.repo;
+    console.log("repo" + repo);
 
     Meteor.call('githubHook', user, repo, function(err, response) {});
   }

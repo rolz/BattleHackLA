@@ -4,11 +4,21 @@
     {{> loginButtons}}
 
     {{#if currentUser}}
-    {{#each repos}}
 
-        <div>{{repo}} has {{commits}} commits <button class="add">Add</button> </div>
 
-    {{/each}}
+    <div class="repo-box">
+        <table style="width:100%">
+
+            {{#each repos}}
+            <tr>
+                <td>{{repo}}</td>
+                <td>{{commits}}</td>
+                <td><button>Add</button></td>
+            </tr>
+            {{/each}}
+        </table>
+    </div>
+
     {{/if}}
 
 

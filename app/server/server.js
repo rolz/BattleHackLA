@@ -98,32 +98,33 @@ function addCommits(username, token) {
 
 Meteor.methods({
     githubHook: function (username, repo) {
-        console.log(username+" "+repo);
-        var thisUser = JSON.stringify(username);
-        var thisRepo = JSON.stringify(repo);
-
-        var token = UserCredentials.findOne({username:username}).token;
-        console.log(token);
-
-        github.authenticate({
-            type: "oauth",
-            token: token
-        });
-
-        github.repos.createHook({
-            user: thisUser,
-            repo: thisRepo,
-            name: 'web',
-            events: ['push'],
-            config: {
-                url: "http://localhost:3000/webhook",
-                content_type: "json"
-            },
-            active: true
-        }, function(err, res) {
-            console.log(JSON.stringify(res));
-        });
-
-        console.log('lets do it');
+    //     console.log(username+"/"+repo);
+    //     var thisUser = username;
+    //     var thisRepo = repo;
+    //
+    //     var token = UserCredentials.findOne({username:username}).token;
+    //
+    //     github.authenticate({
+    //         type: "oauth",
+    //         token: token
+    //     });
+    //
+    //
+    //     github.repos.getHook({
+    //         user: thisUser,
+    //         repo: thisRepo,
+    //         name: 'web',
+    //         //events: ['push'],
+    //         config: {
+    //             url: "http://localhost:3000/webhook",
+    //             content_type: "json"
+    //         }
+    //         //,active: true
+    //     }, function(err, res) {
+    //         console.log(JSON.stringify(res));
+    //     });
+    //
+    //
+    //     console.log('lets do it');
     }
 });
