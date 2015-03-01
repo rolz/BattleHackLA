@@ -22,11 +22,27 @@ function ifUserExists(username, token) {
     var user = UserCredentials.findOne({username:username});
     console.log(user);
 
-    // store current user in state
+    github.authenticate({
+        type: "oauth",
+        token: token
+    });
 
+    // store current user in state
     if (user) {
         console.log("user exists");
-        // UserSession.set("currentUser", user);
+        var repos = UserRepos.findOne({username:username});
+
+        for (var i = 0; i < repos.repo.length; i++) {
+
+            var commits = github.repos.getCommits({
+                user: username,
+                repo: repos.repo[i],
+                author: username
+            });
+            console.log(commits.length);
+        }
+
+
     } else {
         console.log("user doesn't exists");
         // create user account
@@ -61,4 +77,6 @@ function addRepos(username, token) {
         username: username,
         repo: repoArray
     });
+
+
 }
