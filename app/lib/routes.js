@@ -1,10 +1,6 @@
-// Clientside routes
-Router.route('/', function () {
-  this.render('index');
-});
 
 // Restful Api
-Router.route('/restful', {where: 'server'})
+Router.route('/webhook', {where: 'server'})
   .get(function () {
     this.response.end('welcome to our api\n');
   })
@@ -13,3 +9,35 @@ Router.route('/restful', {where: 'server'})
     console.log(post);
     this.response.end('post request\n');
   });
+
+
+// Client Side routes
+Router.map(function() {
+    // homepage
+    this.route('index', {
+        path: '/',
+        onBeforeAction: function() {
+            if (! Meteor.user()) {
+                if (!Meteor.loggingIn()) {
+                    this.next()
+                }
+            } else {
+                Router.go('dashboard');
+                this.next()
+            }
+        }
+    });
+
+    // dashboard
+    this.route('dashboard', {
+        template: 'dashboard',
+        path: '/dashboard',
+        onBeforeAction: function() {
+            if (!Meteor.user()) {
+                Router.go('/');
+            } else {
+                this.next()
+            }
+        }
+    });
+});

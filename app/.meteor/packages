@@ -5,6 +5,11 @@
 # but you can also edit it by hand.
 
 meteor-platform
-autopublish
-insecure
 iron:router
+bruz:github-api
+accounts-github
+accounts-ui-unstyled
+service-configuration
+http
+insecure
+autopublish

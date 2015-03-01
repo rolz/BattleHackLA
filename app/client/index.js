@@ -1,15 +1,16 @@
-// counter starts at 0
-Session.setDefault('counter', 0);
+Meteor.subscribe('userCredentials');
+Meteor.subscribe('userRepos');
 
 Template.index.helpers({
-  counter: function () {
-    return Session.get('counter');
+  user: function() {
+    //  var userInfo =  Meteor.user().services.github.email;
+    return JSON.stringify(UserRepos.find().fetch());
   }
 });
 
-Template.index.events({
-  'click button': function () {
-    // increment the counter when button is clicked
-    Session.set('counter', Session.get('counter') + 1);
+Template.dashboard.helpers({
+  repos: function() {
+    //  var userInfo =  Meteor.user().services.github.email;
+    return JSON.stringify(UserRepos.find().fetch());
   }
 });
