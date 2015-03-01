@@ -1,4 +1,4 @@
-# BattleHackLA 2015 Code
+# BattleHackLA 2015 Code Rocks
 
 ## Install Meteor on your local machine
 ### Get Meteor: curl https://install.meteor.com/ | sh
