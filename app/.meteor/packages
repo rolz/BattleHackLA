@@ -13,3 +13,4 @@ service-configuration
 http
 insecure
 autopublish
+mrt:paypal
