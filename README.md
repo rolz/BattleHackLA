@@ -1,2 +1,2 @@
-# BattleHackLA 2015 Code rocks
+# BattleHackLA 2015 Code is over
 
