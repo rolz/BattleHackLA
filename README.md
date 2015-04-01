@@ -1,2 +1,2 @@
-# BattleHackLA 2015 Code is over
+# BattleHackLA 2015 Code is over forever!
 
