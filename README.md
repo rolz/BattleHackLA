@@ -1,2 +1,2 @@
-# BattleHackLA 2015 Code v!
+# BattleHackLA 2015 Code!
 
